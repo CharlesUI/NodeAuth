@@ -7,6 +7,9 @@ const app = express()
 //ConnectDB
 const connectDB = require('./db/connect')
 
+//Router Auth for Jobs API
+const authenticateUser = require('./middlewares/authentication')
+
 //RouterFunctions
 const authRouter = require('./routes/auth')
 const jobsRouter = require('./routes/jobs')
@@ -21,7 +24,7 @@ app.use(express.json())
 
 
 //Routes
-app.use('/api/v1/jobs', jobsRouter)
+app.use('/api/v1/jobs', authenticateUser, jobsRouter)
 app.use('/api/v1/auth', authRouter)
 
 //Error Handler || 404 Handler
